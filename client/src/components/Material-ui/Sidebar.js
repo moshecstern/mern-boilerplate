@@ -5,7 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-
+// import {
+//   Button
+// } from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
   sidebarAboutBox: {
     padding: theme.spacing(2),
@@ -19,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 export default function Sidebar(props) {
   const classes = useStyles();
   const { archives, description, social, title } = props;
-
   return (
     <Grid item xs={12} md={4}>
       <Paper elevation={0} className={classes.sidebarAboutBox}>
@@ -29,13 +30,14 @@ export default function Sidebar(props) {
         <Typography>{description}</Typography>
       </Paper>
       <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-        Archives
+        Resources
       </Typography>
       {archives.map(archive => (
         <Link display="block" variant="body1" href={archive.url} key={archive.title}>
           {archive.title}
         </Link>
       ))}
+        {/* <Button display="block" key={archive.title} onClick={(e)=> setSelectedDashboard(archive.url)}>{archive.title}</Button> */}
       <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
         Social
       </Typography>

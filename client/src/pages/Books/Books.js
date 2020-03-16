@@ -85,7 +85,7 @@ class Books extends Component {
   }
 
   render() {
-    if(this.state.loggedIn){
+    // if(this.state.loggedIn){
     return (
       <Container fluid>
         <Row>
@@ -146,10 +146,10 @@ class Books extends Component {
         </Row>
       </Container>
     );
-    }
-    else{
-    return <Redirect to="/" />
-    }
+  //   }
+  //   else{
+  //   return <Redirect to="/" />
+  //   }
   }
 }
 
