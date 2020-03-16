@@ -19,10 +19,10 @@ const useStyles = makeStyles(theme => ({
 const Main = props => {
   const classes = useStyles();
   const { tab, title } = props;
-  const [{ data: mydata, loading }, runmainfunc] = useAxios({
-    url: "/api/userbooks/" + jwtDecode(accessString).id,
-    headers: { Authorization: `JWT ${accessString}` }
-  });
+  // const [{ data: mydata, loading }, runmainfunc] = useAxios({
+  //   url: "/api/userbooks/" + jwtDecode(accessString).id,
+  //   headers: { Authorization: `JWT ${accessString}` }
+  // });
   // const [selectedDashboard, setSelectedDashboard] = React.useState(props.selectedDashboard)
   return (
     <Grid item xs={12} md={8}>
@@ -47,4 +47,4 @@ Main.propTypes = {
   posts: PropTypes.array,
   title: PropTypes.string,
 };
-export default Userprofile;
+export default Main;

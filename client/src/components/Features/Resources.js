@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useAxios from "axios-hooks";
 import Axios from "axios";
 import ReactHtmlParser from 'react-html-parser'; 
+import Cookies from 'js-cookie';
 const jwtDecode = require('jwt-decode');
 
 const useStyles = makeStyles({
@@ -14,28 +15,44 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Types(props) {
+const Resources = props => {
   const classes = useStyles();
-
+  let accessString = localStorage.getItem('JWT')
+  if(accessString == null){
+    accessString = Cookies.get("JWT");
+  }
+  const [{ data: mydata, loading }, runmainfunc] = useAxios({
+    url: "/api/resources/catagory/" + props.catagory,
+    // headers: { Authorization: `JWT ${accessString}` }
+  });
+  if (loading) {
+    return <></>;
+  }
   return (
+    <>
+     {!mydata ? null : (
+       <div>
+{mydata.map(data => (
     <div className={classes.root}>
-    {!props.catagory ? null : (
+
+    {!data.heading ? null : (
       <Typography variant="h4" gutterBottom>
-        {props.catagory}
+        {data.heading}
       </Typography>
     )}
-      {!props.subtitle ? null : (
+    
+      {!data.subtitle ? null : (
       <Typography variant="subtitle2" gutterBottom>
-{props.subtitle}      </Typography>
+{data.subtitle}      </Typography>
       )}
-      {!props.body1 ? null : (
+      {!data.body1 ? null : (
       <Typography variant="body1" gutterBottom>
-        {props.body1}
+        {data.body1}
       </Typography>
       )}
-      {!props.body2 ? null : (
+      {!data.body2 ? null : (
       <Typography variant="body1" gutterBottom>
-        {props.body2}
+        {data.body2}
       </Typography>
       )}
       {/* {!props.link ? null : (
@@ -58,5 +75,10 @@ export default function Types(props) {
         overline text
       </Typography> */}
     </div>
+))}
+</div>
+     )}
+    </>
   );
 }
+export default Resources;
