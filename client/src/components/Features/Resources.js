@@ -17,10 +17,10 @@ const useStyles = makeStyles({
 
 const Resources = props => {
   const classes = useStyles();
-  let accessString = localStorage.getItem('JWT')
-  if(accessString == null){
-    accessString = Cookies.get("JWT");
-  }
+  // let accessString = localStorage.getItem('JWT')
+  // if(accessString == null){
+  //   accessString = Cookies.get("JWT");
+  // }
   const [{ data: mydata, loading }, runmainfunc] = useAxios({
     url: "/api/resources/catagory/" + props.catagory,
     // headers: { Authorization: `JWT ${accessString}` }

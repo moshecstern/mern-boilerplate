@@ -16,7 +16,6 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 // import MoreIcon from "@material-ui/icons/MoreVert";
 // import logo from "../../images/gndblogo5.png"
 import { Link } from "react-router-dom";
-import Cookies from 'js-cookie';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
@@ -30,6 +29,9 @@ import {
     Avatar,
     Typography
   } from "@material-ui/core";
+  import ReactHtmlParser from 'react-html-parser'; 
+import Cookies from 'js-cookie';
+const jwtDecode = require('jwt-decode');
 //   import Searchbar from "../Searchbar";
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -99,6 +101,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function PrimarySearchAppBar(props) {
     const [logIn, SetLogIn] = useState(false)
+    // let accessString = localStorage.getItem('JWT')
+    // if(accessString == null){
+    //   accessString = Cookies.get("JWT");
+    // }
+    // let yourDetails = jwtDecode(accessString).username || "Guest"
     // function checklogin () {
     //     if(props.location.state && props.location.state.loggedIn){
     //     SetLogIn(true);
@@ -195,7 +202,7 @@ export default function PrimarySearchAppBar(props) {
                 <Link to={"/home"}><MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit"><Badge// badgeContent={4}
             color="secondary">
-            <logo />
+            {/* <Logo /> */}
           </Badge></IconButton><p>Home</p></MenuItem></Link>
           {/* <Link to={"/home"}>
           <Avatar alt="Remy Sharp" src={logo} className={classes.large}/>
@@ -210,18 +217,7 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Features</p>
       </MenuItem></Link> */}
-      {/* <Link to={"/marketplace"}>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge 
-        //   badgeContent={11} 
-          color="secondary">
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
-        <p>Marketplace</p>
-      </MenuItem>
-      </Link> */}
+
              
       <Link to={"/userprofile"}>
       <MenuItem>
@@ -288,15 +284,18 @@ export default function PrimarySearchAppBar(props) {
           {/* </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge
-            //    badgeContent={4}
-                color="secondary">
-                <Link to={"/application"}>
-                <MoreIcon />
-                </Link>
-              </Badge>
-            </IconButton>
+              {/* <Link to={"/marketplace"}> */}
+      {/* <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge 
+        //   badgeContent={11} 
+          color="secondary">
+           
+          </Badge>
+        </IconButton>
+        <p>Sign In</p>
+      </MenuItem> */}
+      {/* </Link> */}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -308,6 +307,15 @@ export default function PrimarySearchAppBar(props) {
             <Link to={"/userprofile"}>
               <AccountCircle />
               </Link>
+            </IconButton>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge
+            //    badgeContent={4}
+                color="secondary">
+                <Link to={"/signin"}>
+                <ExitToAppIcon />
+                </Link>
+              </Badge>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

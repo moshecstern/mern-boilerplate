@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Resources from '../Features/Resources'
+import AppForm from "../AppForm/AppForm";
 
 
 // import Markdown from './Markdown';
@@ -30,15 +31,14 @@ const Main = props => {
         {title}
       </Typography>
       <Divider />
-{tab === ":about" && 
+{tab && 
 <Resources
-catagory={'about'}
+catagory={tab}
  />}
-      {/* {posts.map(post => (
-        <Markdown className={classes.markdown} key={post.substring(0, 40)}>
-          {post}
-        </Markdown>
-      ))} */}
+ {/* {tab === "application" && 
+<AppForm />} */}
+{/* need to create funding options, blog, reviews, contact, how it works */}
+{/*myapplication      application*/}
     </Grid>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -13,16 +13,26 @@ import Main from '../../components/Material-ui/Main';
 import Sidebar from '../../components/Material-ui/Sidebar';
 import Footer from '../../components/Material-ui/Footer';
 import About from '../../components/Features/Resources'
-// import post1 from './blog-post.1.md';
-// import post2 from './blog-post.2.md';
-// import post3 from './blog-post.3.md';
-let post1 = <p>first blog post</p>
-let post2 = <p>second blog post</p>
-let post3 = <p>third blog post</p>
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import {
+  Button,
+} from "@material-ui/core";
+import Cookies from 'js-cookie';
+const jwtDecode = require('jwt-decode');
+
 const useStyles = makeStyles(theme => ({
   mainGrid: {
     marginTop: theme.spacing(3),
   },
+      sidebarAboutBox: {
+        padding: theme.spacing(2),
+        backgroundColor: theme.palette.grey[200],
+      },
+      sidebarSection: {
+        marginTop: theme.spacing(3),
+      },
 }));
 
 const sections = [
@@ -39,7 +49,7 @@ const sections = [
 ];
 
 const mainFeaturedPost = {
-  title: 'Welcome to Motgomery Capital',
+  title: 'Welcome to Montgomery Capital',
   description:
     "Small business loans quick, safe and easy.",
   image: 'https://source.unsplash.com/random',
@@ -50,6 +60,7 @@ const mainFeaturedPost = {
 const featuredPosts = [
   {
     title: 'Get Funds',
+    catagory: 'application',
     date: 'Apply Now',
     description:
       'Enter your details and apply in minutes.',
@@ -58,6 +69,7 @@ const featuredPosts = [
   },
   {
     title: 'Check your applications',
+    catagory: 'myapplication',
     date: 'Check',
     description:
       'We will email you when your application is reviewed. You can always check your applications here.',
@@ -66,24 +78,23 @@ const featuredPosts = [
   },
 ];
 
-const posts = [post1, post2, post3];
 
 const sidebar = {
   title: 'About',
   description:
     'Our team is always there for you. Serving the Montgomery County since 2019, with the ethics and morals in line with the great values of America',
   archives: [
-    { title: 'About', url: '/home/:about' },
-    { title: 'How it Works', url: '/home/:howitworks' },
-    { title: 'Funding Options', url: '/home/:fundingoptions' },
-    { title: 'Blog', url: '/home/:blog' },
-    { title: 'Faq', url: '/home/:faq' },
-    { title: 'Reviews', url: '/home/:reviews' },
-    { title: 'Values', url: '/home/:values' },
-    { title: 'Privacy Policy', url: '/home/:privacypolicy' },
-    { title: 'Terms of Use', url: '/home/:termsofuse' },
-    { title: 'Contact', url: '/home/:contact' },
-    { title: 'Mission Statement', url: '/home/:missionstatement' },
+    { title: 'About', url: 'about' },
+    { title: 'How it Works', url: 'howitworks' },
+    { title: 'Funding Options', url: 'fundingoptions' },
+    { title: 'Blog', url: 'blog' },
+    { title: 'Faq', url: 'faq' },
+    { title: 'Reviews', url: 'reviews' },
+    { title: 'Values', url: 'values' },
+    { title: 'Privacy Policy', url: 'privacypolicy' },
+    { title: 'Terms of Use', url: 'termsofuse' },
+    { title: 'Contact', url: 'contact' },
+    { title: 'Mission Statement', url: 'missionstatement' },
   ],
   social: [
     { name: 'GitHub', icon: GitHubIcon },
@@ -92,11 +103,26 @@ const sidebar = {
   ],
 };
 
-export default function Blog(props) {
+export default function Home(props) {
   console.log(props.match.params.name)
   const classes = useStyles();
-  // const [selectedDashboard, setSelectedDashboard] = React.useState(props.match.params.name)
+  const [selectedDashboard, setSelectedDashboard] = React.useState('about')
 
+  let accessString = localStorage.getItem('JWT')
+  if(accessString == null){
+    accessString = Cookies.get("JWT");
+  }
+  // let yourDetails = jwtDecode(accessString).username || "Guest"
+  // function getUsersDetails() {
+      //   useEffect(() => {
+        
+      //     if(jwtDecode(accessString).username !== null){
+      //       let yourDetails = jwtDecode(accessString).username
+      //     } else {
+      //       let yourDetails = "Guest"
+      //     }
+      // }, []);
+// }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -108,18 +134,55 @@ export default function Blog(props) {
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
             {featuredPosts.map(post => (
-              <FeaturedPost key={post.title} post={post} />
+              <FeaturedPost key={post.title} post={post} onClick={(e)=> setSelectedDashboard(post.catagory)}/>
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="Your Details" tab={props.match.params.name} /> 
+            <Main title={"Welcome"} tab={selectedDashboard} /> 
             {/* {props.selectedDashboard === "about" && <About />} */}
-            <Sidebar
+            {/* {sidebar.archives.map(arch => ( */}
+            <Grid item xs={12} md={4}>
+      <Paper elevation={0} className={classes.sidebarAboutBox}>
+        <Typography variant="h6" gutterBottom>
+          {sidebar.title}
+        </Typography>
+        <Typography>{sidebar.description}</Typography>
+      </Paper>
+      <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
+        Resources
+      </Typography>
+      {sidebar.archives.map(archive => (
+        <Button display="block" variant="body1" onClick={(e)=> setSelectedDashboard(archive.url)} key={archive.title}>
+          {archive.title}
+        </Button>
+      ))}
+      {/* {sidebar.archives.map(archive => (
+        <Link display="block" variant="body1" href={archive.url} key={archive.title}>
+          {archive.title}
+        </Link>
+      ))} */}
+        {/* <Button display="block" key={archive.title} onClick={(e)=> setSelectedDashboard(archive.url)}>{archive.title}</Button> */}
+      <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
+        Social
+      </Typography>
+      {sidebar.social.map(network => (
+        <Link display="block" variant="body1" href="#" key={network}>
+          <Grid container direction="row" spacing={1} alignItems="center">
+            <Grid item>
+              <network.icon />
+            </Grid>
+            <Grid item>{network.name}</Grid>
+          </Grid>
+        </Link>
+      ))}
+    </Grid>
+    
+            {/* <Sidebar
               title={sidebar.title}
               description={sidebar.description}
               archives={sidebar.archives}
               social={sidebar.social}
-            />
+            /> */}
           </Grid>
         </main>
       </Container>

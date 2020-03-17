@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import AppBar from "./components/AppBar";
 import { Container, makeStyles } from "@material-ui/core";
 import Footer from "./components/Material-ui/Footer"
+import AppForm from "./components/AppForm/AppForm"
 
 const useStyles = makeStyles(theme => ({
   // bg: { backgroundImage: `url(${ComicbookpagesModified})` },
@@ -27,7 +28,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/home" component={Home}/>
-        <Route exact path="/home/:name" component={Home}/>
+        <Route exact path="/userprofile" component={AppForm}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/books" component={Books} />
         <Route exact path="/signin" component={Login}/>
