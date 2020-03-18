@@ -9,10 +9,12 @@ import AppBar from "./components/AppBar";
 import { Container, makeStyles } from "@material-ui/core";
 import Footer from "./components/Material-ui/Footer"
 import AppForm from "./components/AppForm/AppForm"
+import Userprofile from "./pages/Userprofile/index"
 
 const useStyles = makeStyles(theme => ({
   // bg: { backgroundImage: `url(${ComicbookpagesModified})` },
-  container: { backgroundColor: "#f6ef98" }
+  container: { backgroundColor: "#f6ef98" },
+  bg: {backgroundColor: "green" }
   // container: { backgroundColor: "#F2F2F2" }    floralwhite;
   
   
@@ -20,25 +22,25 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   return (
-    <>
-    <Router>
+    <div className={classes.bg}>
     <Container className={classes.container}>
-    {/* <BrowserRouter> */}
+    <Router>
+    <div>
     <AppBar />
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/home" component={Home}/>
-        <Route exact path="/userprofile" component={AppForm}/>
-        <Route exact path="/signup" component={Signup}/>
+      <Switch className={classes.container}>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/userprofile" component={Userprofile} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/books" component={Books} />
-        <Route exact path="/signin" component={Login}/>
+        <Route exact path="/signin" component={Login} />
       </Switch>
-    {/* </BrowserRouter> */}
-    <Footer title="Footer" description="Something here to give the footer a purpose!" />
 
-    </Container>
+    <Footer title="Moshe Stern" description="Something here to give the footer a purpose!" />
+    </div>
       </Router>
-    </>
+    </Container>
+    </div>
   );
 }
 

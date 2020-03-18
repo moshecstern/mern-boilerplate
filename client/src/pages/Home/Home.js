@@ -134,7 +134,7 @@ export default function Home(props) {
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
             {featuredPosts.map(post => (
-              <FeaturedPost key={post.title} post={post} onClick={(e)=> setSelectedDashboard(post.catagory)}/>
+              <FeaturedPost key={post.title} post={post}/>
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
@@ -152,7 +152,7 @@ export default function Home(props) {
         Resources
       </Typography>
       {sidebar.archives.map(archive => (
-        <Button display="block" variant="body1" onClick={(e)=> setSelectedDashboard(archive.url)} key={archive.title}>
+        <Button display="block" variant="outlined" onClick={(e)=> setSelectedDashboard(archive.url)} key={archive.title}>
           {archive.title}
         </Button>
       ))}

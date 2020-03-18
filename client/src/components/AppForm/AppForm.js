@@ -262,8 +262,10 @@ const AppForm = props => {
           variant="outlined"
         />
       </div>
+      <div>
       <Button onClick={savemyApplication}>Save Application</Button>
       {/* <Button onClick={deleteApplication}>Delete</Button> */}
+      </div>
     </div>
   );
 }
