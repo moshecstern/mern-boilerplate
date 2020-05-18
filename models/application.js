@@ -2,22 +2,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const applicationSchema = new Schema({
-  userID: { type: String, required: true },
-  username: { type: String, required: true },
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
-  email: { type: String, required: true },
-  businessname: { type: String, required: true },
-  state: { type: String, required: true },
-  timeinbusiness: { type: String, required: true },
-  reasonforfunding: { type: String, required: true },
-  howdidyouhearaboutus: { type: String, required: true },
-  comments: { type: String, required: true },
-  phone: { type: Number, required: true },
-  amountseeking: { type: Number, required: true },
-  monthlysales: { type: Number, required: true },
-  estimatedcreditscore: { type: Number, required: true },
-  consent: { type: Boolean, required: true },
+  userID: { type: String, required: false },
+  username: { type: String, required: false },
+  firstname: { type: String, required: false },
+  lastname: { type: String, required: false },
+  email: { type: String, required: false },
+  businessname: { type: String, required: false },
+  state: { type: String, required: false },
+  timeinbusiness: { type: String, required: false },
+  reasonforfunding: { type: String, required: false },
+  howdidyouhearaboutus: { type: String, required: false },
+  comments: { type: String, required: false },
+  phone: { type: Number, required: false },
+  amountseeking: { type: Number, required: false },
+  monthlysales: { type: Number, required: false },
+  estimatedcreditscore: { type: Number, required: false },
+  consent: { type: Boolean, required: false },
   date: { type: Date, default: Date.now }
 });
 

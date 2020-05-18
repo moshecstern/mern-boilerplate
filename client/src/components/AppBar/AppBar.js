@@ -101,6 +101,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function PrimarySearchAppBar(props) {
     const [logIn, SetLogIn] = useState(false)
+    const [loggedIn, SetloggedIn] = useState(logIn)
+    if(loggedIn){
+      logIn = true;
+    }
+    else if(Cookies.get('JWT')){
+      logIn = true;
+    }
     // let accessString = localStorage.getItem('JWT')
     // if(accessString == null){
     //   accessString = Cookies.get("JWT");
@@ -166,18 +173,26 @@ export default function PrimarySearchAppBar(props) {
       <MenuItem onClick={handleMenuClose}>
         <Link to={"/books"}>Books</Link>
       </MenuItem>
+
       {/* <MenuItem onClick={handleClose}><Link to={"/blog"}>Blog</Link></MenuItem> */}
       <MenuItem onClick={handleMenuClose}>
         <Link to={"/userprofile"}>Profile </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
+      {/* {!loggedIn ? true : ( */}
         <Link to={"/signin"}>Sign In</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+      {/* )}   */}
+    
         <a href="/" onClick={logout}>
           Logout
         </a>
+      
       </MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>
+        <a href="/" onClick={logout}>
+          Logout
+        </a>
+      </MenuItem> */}
     </Menu>
   );
 

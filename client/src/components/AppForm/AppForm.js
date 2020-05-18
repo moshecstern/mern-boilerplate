@@ -7,6 +7,11 @@ import Axios from "axios"
 import {
     Button,
   } from "@material-ui/core";
+  import Checkbox from '@material-ui/core/Checkbox';
+  import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 const jwtDecode = require('jwt-decode');
 
 const useStyles = makeStyles(theme => ({
@@ -27,6 +32,14 @@ const AppForm = props => {
     if(accessString == null){
       accessString = Cookies.get("JWT");
     }
+    function changeConsent() {
+      console.log(myconsent)
+if(myconsent === true) {
+  setmyconsent(false)
+}else {
+  setmyconsent(true)
+}
+    }
     const [myfirstname, setmyfirstname] = React.useState();
     const [mylastname, setmylastname] = React.useState();
     const [myemail, setmyemail] = React.useState();
@@ -44,14 +57,36 @@ const AppForm = props => {
     const [mypassword, setmypassword] = React.useState();
     const [mypassword2, setmypassword2] = React.useState();
     const [myusername, setmyusername] = React.useState();
+
+function saveUser() {
+  if(mypassword === mypassword2 && myconsent === true){
+  Axios.post("/registerUser", {
+    username: myusername,
+    password: mypassword,
+    email: myemail
+}).then((data)=>{
+    console.log("signed up")
+    savemyApplication()
+    // this.setState({signedUp: true})
+}).catch((err)=>{
+    console.log(err)
+})
+}else{
+  alert("Make sure passwords match and all fields are filled out")
+}
+}
+
+
     function savemyApplication(){
         // console.log(jwtDecode(accessString))
     //    getuser()
         // run function to retrieve user name
+       
         if(mypassword === mypassword2 && myconsent === true){
+
       Axios.post("/api/application", {
-        userID: jwtDecode(accessString).id,
-        username: jwtDecode(accessString).username,
+        userID: myemail,
+        username: myusername,
         firstname: myfirstname,
         lastname: mylastname,
         email: myemail,
@@ -72,7 +107,7 @@ const AppForm = props => {
       // .catch(err => console.log(err));
       .catch(err => alert(err));
     }else{
-        alert("Make sure passwords match and all fields are filled out")
+      alert("Make sure passwords match and all fields are filled out")
     }
     }
     function deleteApplication(id){
@@ -235,7 +270,7 @@ const AppForm = props => {
         //   helperText="Smith"
           margin="normal"
         />
-        <TextField
+        {/* <TextField
           label="How did you here about us?"
           id="margin-normal"
           onChange={(e)=> setmyhowdidyouhearaboutus(e.target.value)}
@@ -243,11 +278,26 @@ const AppForm = props => {
           className={classes.textField}
         //   helperText="John"
           margin="normal"
+        /> */}
+                <TextField
+          id="outlined-full-width"
+          label="How did you here about us?"
+          style={{ margin: 8 }}
+        //   placeholder="Placeholder"
+        onChange={(e)=> setmyhowdidyouhearaboutus(e.target.value)}
+          value={myhowdidyouhearaboutus}
+        //   helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
         />
       </div>
       <div>
         <TextField
-          id="outlined-full-width"
+          id="outlined-full-width1"
           label="Comments"
           style={{ margin: 8 }}
         //   placeholder="Placeholder"
@@ -260,6 +310,13 @@ const AppForm = props => {
             shrink: true,
           }}
           variant="outlined"
+        />
+  <FormControlLabel
+          value={myconsent}
+          onChange={changeConsent}
+          control={<Checkbox color="primary" />}
+          label="I have read and agree to the terms and conditions"
+          labelPlacement="bottom"
         />
       </div>
       <div>
